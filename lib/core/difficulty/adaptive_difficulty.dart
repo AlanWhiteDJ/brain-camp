@@ -1,13 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Progressive Difficulty System
-/// Self-persisting: reads level from storage on init, auto-advances on save.
+/// Auto-advances on construction: reads last level from storage, starts at +1.
 /// Each game defines its own parameter mapping per level.
 
 class AdaptiveDifficulty {
   final String gameId;
   final int maxLevel;
-  final int _startLevel; // fallback if no stored level
+  final int _startLevel;
 
   int _level;
   int _totalCorrect = 0;
@@ -16,7 +16,6 @@ class AdaptiveDifficulty {
   static SharedPreferences? _prefs;
   static const _prefix = 'diff_lv_';
 
-  /// Must be called once at app startup
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
@@ -26,14 +25,19 @@ class AdaptiveDifficulty {
     this.maxLevel = 255,
     int startLevel = 50,
   }) : _startLevel = startLevel,
-       _level = _loadStoredLevel(gameId, startLevel);
+       _level = _resolveLevel(gameId, startLevel, maxLevel);
 
-  static int _loadStoredLevel(String gameId, int fallback) {
-    if (_prefs == null) return fallback;
-    return _prefs!.getInt('$_prefix$gameId') ?? fallback;
+  /// Read stored level. If found, advance by 1 (next level). Otherwise use startLevel.
+  static int _resolveLevel(String gameId, int startLevel, int maxLevel) {
+    if (_prefs == null) return startLevel;
+    final stored = _prefs!.getInt('$_prefix$gameId');
+    if (stored == null) return startLevel;
+    final next = stored + 1;
+    return next > maxLevel ? maxLevel : next;
   }
 
-  static Future<void> _saveStoredLevel(String gameId, int level) async {
+  /// Save current level (called at session end)
+  static Future<void> _saveLevel(String gameId, int level) async {
     if (_prefs == null) return;
     await _prefs!.setInt('$_prefix$gameId', level);
   }
@@ -48,14 +52,9 @@ class AdaptiveDifficulty {
     if (correct) _totalCorrect++;
   }
 
-  /// Call at session end: advance level and persist
-  void advanceLevel() {
-    if (_level < maxLevel) _level++;
-    _saveStoredLevel(gameId, _level);
-  }
-
+  /// Persist current level (without advancing — advance happens on next construction)
   Map<String, dynamic> toJson() {
-    advanceLevel(); // auto-advance + persist
+    _saveLevel(gameId, _level);
     return {
       'game_id': gameId,
       'level': _level,
