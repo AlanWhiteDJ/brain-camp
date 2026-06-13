@@ -52,11 +52,11 @@ class SearchTask {
 
   SearchTask({
     required this.childAge,
-    int startLevel = 3,
+    int startLevel = 50,
     int totalRounds = 12,
   })  : _difficulty = AdaptiveDifficulty(
           gameId: 'attention_search',
-          maxLevel: 10,
+          maxLevel: 255,
           upThreshold: 0.75,
           downThreshold: 0.50,
           windowSize: 6,

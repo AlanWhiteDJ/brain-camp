@@ -37,7 +37,7 @@ class NBackTask {
   }) : _difficulty = difficulty ??
             AdaptiveDifficulty(
               gameId: 'nback',
-              maxLevel: 10,
+              maxLevel: 255,
               upThreshold: 0.82,
               downThreshold: 0.55,
               windowSize: 10,
@@ -45,11 +45,7 @@ class NBackTask {
             );
 
   static int _startLevelForAge(int age) {
-    if (age <= 4) return 1;
-    if (age <= 6) return 1;
-    if (age <= 8) return 2;
-    if (age <= 10) return 3;
-    return 4;
+    return (age * 14).clamp(20, 200);
   }
 
   // --- Difficulty-driven parameters ---

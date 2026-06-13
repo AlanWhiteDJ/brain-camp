@@ -21,14 +21,14 @@ class _AnalogyScreenState extends State<AnalogyScreen> {
 
   AnalogyTask _buildTask(Map<String, dynamic> profile) {
     final prev = LocalStorage.getSessionsForTask('reasoning_analogy');
-    int startLevel = 3;
+    int startLevel = 50;
     if (prev.isNotEmpty) {
       startLevel = (prev.last['final_level'] as int?) ?? 3;
     }
     return AnalogyTask(
       difficulty: AdaptiveDifficulty(
         gameId: 'reasoning_analogy',
-        maxLevel: 10,
+        maxLevel: 255,
         startLevel: startLevel,
       ),
     );

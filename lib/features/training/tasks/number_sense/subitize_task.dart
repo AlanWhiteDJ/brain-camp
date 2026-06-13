@@ -30,7 +30,7 @@ class SubitizeTask {
   SubitizeTask({required this.childAge})
       : _difficulty = AdaptiveDifficulty(
           gameId: 'subitize',
-          maxLevel: 10,
+          maxLevel: 255,
           upThreshold: 0.75,
           downThreshold: 0.50,
           windowSize: 6,
@@ -38,11 +38,7 @@ class SubitizeTask {
         );
 
   static int _startLevelForAge(int age) {
-    if (age <= 4) return 1;
-    if (age <= 5) return 2;
-    if (age <= 7) return 3;
-    if (age <= 9) return 4;
-    return 5;
+    return (age * 14).clamp(20, 200);
   }
 
   // Getters

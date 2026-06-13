@@ -39,13 +39,13 @@ class GoNogoTask {
 
   GoNogoTask({
     required this.childAge,
-    int startLevel = 3,
+    int startLevel = 50,
   }) : _difficulty = AdaptiveDifficulty(
          gameId: 'reaction_gonogo',
-         maxLevel: 10,
+         maxLevel: 255,
          upThreshold: 0.80,
          downThreshold: 0.55,
-         windowSize: 8,
+         windowSize: 12,
          startLevel: startLevel,
        ) {
     _applyLevelParams();

@@ -44,13 +44,13 @@ class CptTask {
 
   CptTask({
     required this.childAge,
-    int startLevel = 3,
+    int startLevel = 50,
   }) : _difficulty = AdaptiveDifficulty(
          gameId: 'attention_cpt',
-         maxLevel: 10,
+         maxLevel: 255,
          upThreshold: 0.80,
          downThreshold: 0.55,
-         windowSize: 8,
+         windowSize: 12,
          startLevel: startLevel,
        ) {
     _totalDurationMs = _durationForAge(childAge) * 60000;

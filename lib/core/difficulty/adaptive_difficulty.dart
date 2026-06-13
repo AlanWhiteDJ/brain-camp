@@ -20,10 +20,10 @@ class AdaptiveDifficulty {
 
   AdaptiveDifficulty({
     required this.gameId,
-    this.maxLevel = 10,
+    this.maxLevel = 255,
     this.upThreshold = 0.80,
     this.downThreshold = 0.55,
-    this.windowSize = 8,
+    this.windowSize = 12,
     int startLevel = 3,
   }) : _level = startLevel;
 

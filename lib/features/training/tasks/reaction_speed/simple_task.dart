@@ -34,13 +34,13 @@ class SimpleTask {
 
   SimpleTask({
     required this.childAge,
-    int startLevel = 3,
+    int startLevel = 50,
   }) : _difficulty = AdaptiveDifficulty(
          gameId: 'reaction_simple',
-         maxLevel: 10,
+         maxLevel: 255,
          upThreshold: 0.80,
          downThreshold: 0.55,
-         windowSize: 8,
+         windowSize: 12,
          startLevel: startLevel,
        ) {
     _applyLevelParams();

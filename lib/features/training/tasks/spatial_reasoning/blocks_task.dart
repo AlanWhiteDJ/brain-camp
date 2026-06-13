@@ -20,7 +20,7 @@ class BlocksTask {
   int _nextTapIdx = 0;
 
   BlocksTask({required this.childAge}) {
-    _diff = AdaptiveDifficulty(gameId: 'spatial_blocks', startLevel: childAge <= 4 ? 1 : childAge <= 6 ? 2 : 3);
+    _diff = AdaptiveDifficulty(gameId: 'spatial_blocks', startLevel: childAge <= 4 ? 25 : childAge <= 6 ? 50 : 75);
   }
 
   int get gridSize => _gridSize;

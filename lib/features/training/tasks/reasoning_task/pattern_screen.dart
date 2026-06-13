@@ -26,14 +26,14 @@ class _PatternScreenState extends State<PatternScreen> {
 
   PatternTask _buildTask(Map<String, dynamic> profile) {
     final prev = LocalStorage.getSessionsForTask('reasoning_pattern');
-    int startLevel = 3;
+    int startLevel = 50;
     if (prev.isNotEmpty) {
-      startLevel = (prev.last['final_level'] as int?) ?? 3;
+      startLevel = (prev.last['final_level'] as int?) ?? 50;
     }
     return PatternTask(
       difficulty: AdaptiveDifficulty(
         gameId: 'reasoning_pattern',
-        maxLevel: 10,
+        maxLevel: 255,
         startLevel: startLevel,
       ),
     );

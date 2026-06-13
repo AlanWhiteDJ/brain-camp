@@ -21,14 +21,14 @@ class _OddOneScreenState extends State<OddOneScreen> {
 
   OddOneTask _buildTask(Map<String, dynamic> profile) {
     final prev = LocalStorage.getSessionsForTask('reasoning_oddone');
-    int startLevel = 3;
+    int startLevel = 50;
     if (prev.isNotEmpty) {
       startLevel = (prev.last['final_level'] as int?) ?? 3;
     }
     return OddOneTask(
       difficulty: AdaptiveDifficulty(
         gameId: 'reasoning_oddone',
-        maxLevel: 10,
+        maxLevel: 255,
         startLevel: startLevel,
       ),
     );

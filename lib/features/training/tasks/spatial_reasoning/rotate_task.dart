@@ -22,7 +22,7 @@ class RotateTask {
   int _numOptions = 4;
 
   RotateTask({required this.childAge}) {
-    _diff = AdaptiveDifficulty(gameId: 'spatial_rotate', startLevel: childAge <= 4 ? 1 : childAge <= 6 ? 2 : 3);
+    _diff = AdaptiveDifficulty(gameId: 'spatial_rotate', startLevel: childAge <= 4 ? 25 : childAge <= 6 ? 50 : 75);
   }
 
   String get targetEmoji => _targetEmoji;

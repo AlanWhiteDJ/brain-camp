@@ -23,7 +23,7 @@ class MirrorTask {
   int _numOptions = 4;
 
   MirrorTask({required this.childAge}) {
-    _diff = AdaptiveDifficulty(gameId: 'spatial_mirror', startLevel: 3);
+    _diff = AdaptiveDifficulty(gameId: 'spatial_mirror', startLevel: 50);
   }
 
   List<String> get half => _half;
