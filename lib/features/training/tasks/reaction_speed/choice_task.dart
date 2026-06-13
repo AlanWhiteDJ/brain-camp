@@ -44,9 +44,6 @@ class ChoiceTask {
   }) : _difficulty = AdaptiveDifficulty(
          gameId: 'reaction_choice',
          maxLevel: 255,
-         upThreshold: 0.80,
-         downThreshold: 0.55,
-         windowSize: 12,
          startLevel: startLevel,
        ) {
     _applyLevelParams();

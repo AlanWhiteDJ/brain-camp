@@ -26,9 +26,6 @@ class DotsTask {
       : _difficulty = AdaptiveDifficulty(
           gameId: 'dots',
           maxLevel: 255,
-          upThreshold: 0.75,
-          downThreshold: 0.50,
-          windowSize: 6,
           startLevel: _startLevelForAge(childAge),
         );
 
@@ -143,7 +140,7 @@ class DotsTask {
         'accuracy': accuracy,
         'mean_rt': meanReactionTime,
         'final_level': _difficulty.level,
-        'difficulty_progress': _difficulty.progress,
+        'difficulty_progress': _difficulty.accuracy,
         'child_age': childAge,
         'reaction_times': _reactionTimes,
       };

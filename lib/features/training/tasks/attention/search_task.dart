@@ -57,9 +57,6 @@ class SearchTask {
   })  : _difficulty = AdaptiveDifficulty(
           gameId: 'attention_search',
           maxLevel: 255,
-          upThreshold: 0.75,
-          downThreshold: 0.50,
-          windowSize: 6,
           startLevel: startLevel,
         ),
         _totalRounds = totalRounds {

@@ -38,9 +38,6 @@ class NBackTask {
             AdaptiveDifficulty(
               gameId: 'nback',
               maxLevel: 255,
-              upThreshold: 0.82,
-              downThreshold: 0.55,
-              windowSize: 10,
               startLevel: _startLevelForAge(6),
             );
 

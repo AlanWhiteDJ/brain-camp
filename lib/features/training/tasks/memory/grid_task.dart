@@ -37,9 +37,6 @@ class GridTask {
             AdaptiveDifficulty(
               gameId: 'grid_memory',
               maxLevel: 255,
-              upThreshold: 0.80,
-              downThreshold: 0.55,
-              windowSize: 5,
               startLevel: _startLevelForAge(6),
             ) {
     _gridSize = gridSizeForLevel(_difficulty.level);

@@ -31,9 +31,6 @@ class LineTask {
       : _difficulty = AdaptiveDifficulty(
           gameId: 'line',
           maxLevel: 255,
-          upThreshold: 0.70,
-          downThreshold: 0.45,
-          windowSize: 6,
           startLevel: _startLevelForAge(childAge),
         );
 
@@ -155,7 +152,7 @@ class LineTask {
         'mean_error_fraction': meanError,
         'mean_rt': meanReactionTime,
         'final_level': _difficulty.level,
-        'difficulty_progress': _difficulty.progress,
+        'difficulty_progress': _difficulty.accuracy,
         'child_age': childAge,
       };
 }

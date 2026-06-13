@@ -49,9 +49,6 @@ class CorsiTask {
             AdaptiveDifficulty(
               gameId: 'corsi',
               maxLevel: 255,
-              upThreshold: 0.80,
-              downThreshold: 0.55,
-              windowSize: 6,
               startLevel: _startLevelForAge(6),
             ) {
     _currentSpan = spanForLevel(_difficulty.level);

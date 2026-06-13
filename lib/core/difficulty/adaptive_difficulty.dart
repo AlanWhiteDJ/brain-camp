@@ -1,71 +1,49 @@
-/// Adaptive Difficulty System
-/// Common difficulty leveling for all training games
-///
-/// Adjusts up when performance is good, down when struggling.
+/// Progressive Difficulty System
+/// Simple level advancement: one session = one level up
 /// Each game defines its own parameter mapping per level.
-
-import 'dart:math';
 
 class AdaptiveDifficulty {
   final String gameId;
   final int maxLevel;
-  final double upThreshold;  // accuracy above this → level up
-  final double downThreshold; // accuracy below this → level down
-  final int windowSize;       // trials to evaluate
 
   int _level;
-  final List<bool> _recentResults = [];
   int _totalCorrect = 0;
   int _totalTrials = 0;
 
   AdaptiveDifficulty({
     required this.gameId,
     this.maxLevel = 255,
-    this.upThreshold = 0.80,
-    this.downThreshold = 0.55,
-    this.windowSize = 12,
-    int startLevel = 3,
+    int startLevel = 50,
   }) : _level = startLevel;
 
   int get level => _level;
-  double get progress => _totalTrials > 0 ? _totalCorrect / _totalTrials : 0;
-  double get recentAccuracy {
-    if (_recentResults.isEmpty) return 1.0;
-    return _recentResults.where((r) => r).length / _recentResults.length;
-  }
-
+  double get accuracy => _totalTrials > 0 ? _totalCorrect / _totalTrials : 0;
   int get totalTrials => _totalTrials;
   int get totalCorrect => _totalCorrect;
 
-  /// Record result and adjust difficulty
-  int recordResult(bool correct) {
+  /// Record a single trial result (for stats only)
+  void recordResult(bool correct) {
     _totalTrials++;
     if (correct) _totalCorrect++;
-    _recentResults.add(correct);
-    if (_recentResults.length > windowSize) _recentResults.removeAt(0);
+  }
 
-    // Evaluate window
-    if (_recentResults.length >= windowSize) {
-      final acc = recentAccuracy;
-      if (acc >= upThreshold && _level < maxLevel) {
-        _level++;
-      } else if (acc <= downThreshold && _level > 1) {
-        _level--;
-      }
-      // Clear window after adjustment
-      _recentResults.clear();
-    }
-
+  /// Advance one level after completing a session (capped at maxLevel)
+  /// Returns the new level
+  int advanceLevel() {
+    if (_level < maxLevel) _level++;
     return _level;
   }
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() {
+    if (_level < maxLevel) _level++;
+    return {
         'game_id': gameId,
         'level': _level,
         'total_correct': _totalCorrect,
         'total_trials': _totalTrials,
-        'accuracy': progress,
+        'accuracy': accuracy,
       };
+  }
 }
 
 /// Parameter mapper: maps difficulty level to game-specific parameters
@@ -82,7 +60,7 @@ class DifficultyParams {
     return min + (max - min) * t;
   }
 
-  /// Inverse: easier at lower levels
+  /// Inverse: easier at lower levels (higher level = harder = smaller value)
   static int inverseInt(int level, int maxLevel, int min, int max) {
     return levelToInt(maxLevel - level + 1, maxLevel, min, max);
   }

@@ -63,9 +63,6 @@ class FlankerTask {
   })  : _difficulty = AdaptiveDifficulty(
           gameId: 'attention_flanker',
           maxLevel: 255,
-          upThreshold: 0.80,
-          downThreshold: 0.55,
-          windowSize: 12,
           startLevel: startLevel,
         ),
         _totalTrials = totalTrials {
