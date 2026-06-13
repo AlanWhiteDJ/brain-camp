@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 import 'core/storage/local_storage.dart';
+import 'core/difficulty/adaptive_difficulty.dart';
 import 'features/profile/profile_screen.dart';
 import 'features/profile/child_profile.dart';
 import 'features/training/tasks/attention/attention_hub.dart';
@@ -14,6 +15,7 @@ import 'features/training/tasks/spatial_reasoning/spatial_hub.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorage.init();
+  await AdaptiveDifficulty.init();
   runApp(const BrainCampApp());
 }
 
