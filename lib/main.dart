@@ -5,6 +5,10 @@ import 'core/storage/local_storage.dart';
 import 'features/profile/profile_screen.dart';
 import 'features/training/tasks/cpt/cpt_screen.dart';
 import 'features/training/tasks/corsi/corsi_screen.dart';
+import 'features/training/tasks/number/number_screen.dart';
+import 'features/training/tasks/reaction/reaction_screen.dart';
+import 'features/training/tasks/reasoning/reasoning_screen.dart';
+import 'features/training/tasks/spatial/spatial_screen.dart';
 import 'features/profile/child_profile.dart';
 
 void main() async {
@@ -54,12 +58,12 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   static const _modules = [
-    _ModuleInfo('🎯', '专注', '找一找，盯住不放', Color(0xFF42A5F5), 'cpt'),
+    _ModuleInfo('🎯', '专注', '找一找，盯住不放', Color(0xFF42A5F5), 'cpt', enabled: true),
     _ModuleInfo('🧠', '记忆', '记住位置和顺序', Color(0xFFAB47BC), 'corsi', enabled: true),
-    _ModuleInfo('🔢', '数感', '比比大小，估估位置', Color(0xFF66BB6A), 'number'),
-    _ModuleInfo('⚡', '反应', '看得快，点得准', Color(0xFFFF7043), 'reaction'),
-    _ModuleInfo('🧩', '推理', '找出规律，缺了谁', Color(0xFFFFCA28), 'reasoning'),
-    _ModuleInfo('🔮', '空间', '转一转，想一想', Color(0xFF26C6DA), 'spatial'),
+    _ModuleInfo('🔢', '数感', '比比大小，估估位置', Color(0xFF66BB6A), 'number', enabled: true),
+    _ModuleInfo('⚡', '反应', '看得快，点得准', Color(0xFFFF7043), 'reaction', enabled: true),
+    _ModuleInfo('🧩', '推理', '找出规律，缺了谁', Color(0xFFFFCA28), 'reasoning', enabled: true),
+    _ModuleInfo('🔮', '空间', '转一转，想一想', Color(0xFF26C6DA), 'spatial', enabled: true),
   ];
 
   @override
@@ -197,6 +201,18 @@ class HomeScreen extends StatelessWidget {
         break;
       case 'corsi':
         screen = CorsiScreen(childProfile: childData);
+        break;
+      case 'number':
+        screen = NumberScreen(childProfile: childData);
+        break;
+      case 'reaction':
+        screen = ReactionScreen(childProfile: childData);
+        break;
+      case 'reasoning':
+        screen = ReasoningScreen(childProfile: childData);
+        break;
+      case 'spatial':
+        screen = SpatialScreen(childProfile: childData);
         break;
       default:
         ScaffoldMessenger.of(context).showSnackBar(
